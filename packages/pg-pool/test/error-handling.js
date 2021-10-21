@@ -37,6 +37,17 @@ describe('pool error handling', function () {
     })
   })
 
+  it('Should catch errors in client.query', function () {
+    expect((new Pool()).query).to.throw('something')
+    expect(() => {
+      try {
+        (new Pool()).query(null)
+      } catch (e) {
+        console.log(e)
+      }
+    }).not.to.throw('something')
+  })
+
   describe('calling release more than once', () => {
     it(
       'should throw each time',
